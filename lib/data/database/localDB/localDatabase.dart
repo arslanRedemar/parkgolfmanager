@@ -109,7 +109,7 @@ class SqfliteDatabase implements LocalDatabase {
   }
 
   // CLUB
-  @override
+
   Future<Either<Failure, int>> insertClub(ClubModel club) async {
     try {
       final db = await database;
@@ -120,7 +120,6 @@ class SqfliteDatabase implements LocalDatabase {
     }
   }
 
-  @override
   Future<Either<Failure, List<ClubModel>>> getAllClubs() async {
     try {
       final db = await database;
@@ -131,7 +130,6 @@ class SqfliteDatabase implements LocalDatabase {
     }
   }
 
-  @override
   Future<Either<Failure, int>> deleteClub(int id) async {
     try {
       final db = await database;
@@ -143,7 +141,7 @@ class SqfliteDatabase implements LocalDatabase {
   }
 
   // MEMBER
-  @override
+
   Future<Either<Failure, int>> insertMember(MemberModel member) async {
     try {
       final db = await database;
@@ -154,7 +152,6 @@ class SqfliteDatabase implements LocalDatabase {
     }
   }
 
-  @override
   Future<Either<Failure, List<MemberModel>>> getAllMembers() async {
     try {
       final db = await database;
@@ -165,7 +162,6 @@ class SqfliteDatabase implements LocalDatabase {
     }
   }
 
-  @override
   Future<Either<Failure, List<MemberModel>>> getMembersByClub(
     int clubId,
   ) async {
@@ -182,7 +178,6 @@ class SqfliteDatabase implements LocalDatabase {
     }
   }
 
-  @override
   Future<Either<Failure, int>> deleteMember(int id) async {
     try {
       final db = await database;
@@ -198,7 +193,7 @@ class SqfliteDatabase implements LocalDatabase {
   }
 
   // TOURNAMENT
-  @override
+
   Future<Either<Failure, int>> insertTournament(
     TournamentModel tournament,
   ) async {
@@ -211,7 +206,6 @@ class SqfliteDatabase implements LocalDatabase {
     }
   }
 
-  @override
   Future<Either<Failure, List<TournamentModel>>> getAllTournaments() async {
     try {
       final db = await database;
@@ -222,7 +216,6 @@ class SqfliteDatabase implements LocalDatabase {
     }
   }
 
-  @override
   Future<Either<Failure, int>> deleteTournament(int id) async {
     try {
       final db = await database;
@@ -238,7 +231,7 @@ class SqfliteDatabase implements LocalDatabase {
   }
 
   // SCORE
-  @override
+
   Future<Either<Failure, int>> insertScore(ScoreModel score) async {
     try {
       final db = await database;
@@ -249,7 +242,6 @@ class SqfliteDatabase implements LocalDatabase {
     }
   }
 
-  @override
   Future<Either<Failure, List<ScoreModel>>> getScoresByMember(
     int memberId,
   ) async {

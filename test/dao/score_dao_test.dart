@@ -4,6 +4,8 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:parkgolf/data/dao/score_dao.dart';
 import 'package:parkgolf/data/models/score_model.dart';
 
+import 'package:parkgolf/di.dart';
+
 void main() {
   late Database db;
   late ScoreDao dao;
@@ -25,7 +27,7 @@ void main() {
         created_at TEXT DEFAULT CURRENT_TIMESTAMP
       );
     ''');
-    dao = ScoreDao(db);
+    dao = sl<ScoreDao>();
   });
 
   tearDown(() async {

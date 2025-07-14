@@ -4,6 +4,8 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:parkgolf/data/dao/member_dao.dart';
 import 'package:parkgolf/data/models/member_model.dart';
 
+import 'package:parkgolf/di.dart';
+
 void main() {
   late Database db;
   late MemberDao dao;
@@ -27,7 +29,7 @@ void main() {
         created_at TEXT DEFAULT CURRENT_TIMESTAMP
       );
     ''');
-    dao = MemberDao(db);
+    dao = sl<MemberDao>();
   });
 
   tearDown(() async {

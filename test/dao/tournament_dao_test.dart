@@ -3,6 +3,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'package:parkgolf/data/dao/tournament_dao.dart';
 import 'package:parkgolf/data/models/tournament_model.dart';
+import 'package:parkgolf/di.dart';
 
 void main() {
   late Database db;
@@ -25,7 +26,8 @@ void main() {
         created_at TEXT DEFAULT CURRENT_TIMESTAMP
       );
     ''');
-    dao = TournamentDao(db);
+
+    dao = sl<TournamentDao>();
   });
 
   tearDown(() async {

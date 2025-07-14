@@ -1,41 +1,43 @@
-
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
-class ScoreModel extends Equatable {
+part 'score_model.g.dart';
+
+@HiveType(typeId: 3)
+class ScoreModel extends HiveObject with EquatableMixin {
+  @HiveField(0)
   final int? id;
-  final int memberId;
-  final int tournamentId;
-  final int strokes;
-  final String? memo;
+
+  @HiveField(1)
+  final String name;
+
+  @HiveField(2)
+  final String? regionOrEtc;
+
+  @HiveField(3)
   final String? createdAt;
 
   const ScoreModel({
     this.id,
-    required this.memberId,
-    required this.tournamentId,
-    required this.strokes,
-    this.memo,
+    required this.name,
+    this.regionOrEtc,
     this.createdAt,
   });
 
   factory ScoreModel.fromMap(Map<String, dynamic> map) => ScoreModel(
         id: map['id'],
-        memberId: map['member_id'],
-        tournamentId: map['tournament_id'],
-        strokes: map['strokes'],
-        memo: map['memo'],
+        name: map['name'],
+        regionOrEtc: map['region'] ?? map['location'] ?? map['note'],
         createdAt: map['created_at'],
       );
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        'member_id': memberId,
-        'tournament_id': tournamentId,
-        'strokes': strokes,
-        'memo': memo,
+        'name': name,
+        'regionOrEtc': regionOrEtc,
         'created_at': createdAt,
       };
 
   @override
-  List<Object?> get props => [id, memberId, tournamentId, strokes, memo, createdAt];
+  List<Object?> get props => [id, name, regionOrEtc, createdAt];
 }

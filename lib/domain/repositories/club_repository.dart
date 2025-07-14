@@ -1,26 +1,41 @@
 import 'package:dartz/dartz.dart';
-
-import '../../../core/error/failure.dart';
-import '../../data/models/club_model.dart';
-import '../../data/dao/club_dao.dart';
-
-abstract class ClubRepository {
-  Future<Either<Failure, int>> insertClub(ClubModel club);
-  Future<Either<Failure, List<ClubModel>>> getAllClubs();
-  Future<Either<Failure, int>> deleteClub(int id);
-}
+import 'package:hive/hive.dart';
+import '../../core/failures/failure.dart';
+import '../../domain/models/club_model.dart';
+import '../../domain/repositories/club_repository.dart';
 
 class ClubRepositoryImpl implements ClubRepository {
-  final ClubDao dao;
+  final Box<ClubModel> box;
 
-  ClubRepositoryImpl(this.dao);
-
-  @override
-  Future<Either<Failure, int>> insertClub(ClubModel club) => dao.insert(club);
+  ClubRepositoryImpl(this.box);
 
   @override
-  Future<Either<Failure, List<ClubModel>>> getAllClubs() => dao.getAll();
+  Future<Either<Failure, List<ClubModel>>> getAll() async {
+    try {
+      final items = box.values.toList();
+      return Right(items);
+    } catch (e) {
+      return Left(DatabaseFailure(message: e.toString()));
+    }
+  }
 
   @override
-  Future<Either<Failure, int>> deleteClub(int id) => dao.delete(id);
+  Future<Either<Failure, void>> insert(ClubModel item) async {
+    try {
+      await box.put(item.id, item);
+      return const Right(null);
+    } catch (e) {
+      return Left(DatabaseFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> delete(int id) async {
+    try {
+      await box.delete(id);
+      return const Right(null);
+    } catch (e) {
+      return Left(DatabaseFailure(message: e.toString()));
+    }
+  }
 }

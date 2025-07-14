@@ -32,9 +32,11 @@ dependencies:
     sdk: flutter
 
   # ✅ 데이터베이스
-  sqflite: ^2.3.2
   path: ^1.9.0
   get_it: ^8.0.3
+  drift: ^2.27.0
+  drift_flutter: ^0.2.4
+  path_provider: ^2.1.1
 
   # ✅ 함수형 에러 처리
   dartz: ^0.10.1
@@ -52,4 +54,5 @@ dev_dependencies:
 
 
   # ✅ 데이터베이스 테스트
-  sqflite_common_ffi: ^2.3.6
+  drift_dev: ^2.27.0
+  build_runner: ^2.4.6

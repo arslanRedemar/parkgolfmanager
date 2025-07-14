@@ -1,30 +1,41 @@
 import 'package:dartz/dartz.dart';
-
-import '../../../core/error/failure.dart';
-import '../../data/models/score_model.dart';
-import '../../data/dao/score_dao.dart';
-
-abstract class ScoreRepository {
-  Future<Either<Failure, int>> insertScore(ScoreModel score);
-  Future<Either<Failure, List<ScoreModel>>> getScoresByMember(int memberId);
-  Future<Either<Failure, List<ScoreModel>>> getScoresByTournament(int tournamentId);
-  Future<Either<Failure, int>> deleteScore(int id);
-}
+import 'package:hive/hive.dart';
+import '../../core/failures/failure.dart';
+import '../../domain/models/score_model.dart';
+import '../../domain/repositories/score_repository.dart';
 
 class ScoreRepositoryImpl implements ScoreRepository {
-  final ScoreDao dao;
+  final Box<ScoreModel> box;
 
-  ScoreRepositoryImpl(this.dao);
-
-  @override
-  Future<Either<Failure, int>> insertScore(ScoreModel score) => dao.insert(score);
+  ScoreRepositoryImpl(this.box);
 
   @override
-  Future<Either<Failure, List<ScoreModel>>> getScoresByMember(int memberId) => dao.getByMember(memberId);
+  Future<Either<Failure, List<ScoreModel>>> getAll() async {
+    try {
+      final items = box.values.toList();
+      return Right(items);
+    } catch (e) {
+      return Left(DatabaseFailure(message: e.toString()));
+    }
+  }
 
   @override
-  Future<Either<Failure, List<ScoreModel>>> getScoresByTournament(int tournamentId) => dao.getByTournament(tournamentId);
+  Future<Either<Failure, void>> insert(ScoreModel item) async {
+    try {
+      await box.put(item.id, item);
+      return const Right(null);
+    } catch (e) {
+      return Left(DatabaseFailure(message: e.toString()));
+    }
+  }
 
   @override
-  Future<Either<Failure, int>> deleteScore(int id) => dao.delete(id);
+  Future<Either<Failure, void>> delete(int id) async {
+    try {
+      await box.delete(id);
+      return const Right(null);
+    } catch (e) {
+      return Left(DatabaseFailure(message: e.toString()));
+    }
+  }
 }
