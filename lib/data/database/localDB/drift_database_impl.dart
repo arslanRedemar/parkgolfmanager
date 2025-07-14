@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:drift/drift.dart';
@@ -10,8 +9,6 @@ import '../../models/club_model.dart';
 import '../../models/member_model.dart';
 import '../../models/tournament_model.dart';
 import '../../models/score_model.dart';
-import 'drift_tables.dart';
-import 'package:your_project/data/datasources/drift_database.g.dart';
 
 part 'drift_database.g.dart';
 
